@@ -9,7 +9,7 @@ class Tile
 
     def initialize
         @bomb = bomb?
-        @revealed? = false
+        @hidden? = true
     end
 
     def bomb?
