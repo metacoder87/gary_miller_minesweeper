@@ -11,6 +11,7 @@ class Board
 
     def initialize(n)
         @grid = self.class.the_grid(n)
+        row_key
     end
 
     def render(dup = [])
