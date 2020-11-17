@@ -3,13 +3,11 @@
 
 class Tile
 
-    attr_accessor :revealed?
+    attr_accessor :hidden
 
-    attr_reader :bomb
-
-    def initialize
+    def initialize(status)
         @bomb = bomb?
-        @hidden? = true
+        @hidden = status
     end
 
     def bomb?
