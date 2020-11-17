@@ -12,6 +12,10 @@ class Board
     def initialize(n)
         @grid = self.class.the_grid(n)
         row_key
+    def row_key
+        i = 1
+        @grid.each { |row| row.insert(0, "#{i}") && i += 1 }
+    end
     end
 
     def render(dup = [])
