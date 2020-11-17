@@ -11,7 +11,11 @@ class Board
 
     def initialize(n)
         @grid = self.class.the_grid(n)
+        @dup = []
         row_key
+        render
+    end
+
     def row_key
         i = 1
         @grid.each { |row| row.insert(0, "#{i}") && i += 1 }
@@ -21,6 +25,10 @@ class Board
         @dup.unshift((0..@grid[1].length - 1).to_a.join(' '))
     end
 
+    def render
+        @dup.clear
+        col_key
+        @grid.each { |line| @dup << line.map { |tile| tile.is_a?(String) ? tile : tile.hidden ? "*" : "_" }.join(' ') }
     end
 
     def render(dup = [])
