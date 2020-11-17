@@ -37,6 +37,11 @@ class Board
         @dup.each { |line| puts line }
         puts "\n"
     end
+
+    def reveal(position)
+        @grid[position[0] - 1][position[1]].hidden = false
+        render
+        print
     end
 
 end
