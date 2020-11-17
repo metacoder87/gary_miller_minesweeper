@@ -31,9 +31,12 @@ class Board
         @grid.each { |line| @dup << line.map { |tile| tile.is_a?(String) ? tile : tile.hidden ? "*" : "_" }.join(' ') }
     end
 
-    def render(dup = [])
-        @grid.each { |line| dup << line.map { |tile| tile.hidden ? "*" : "_" }.join(' ') }
-        dup.each { |line| p line }
+    def print
+        puts "\nMINESWEEPER"
+        puts "\n"
+        @dup.each { |line| puts line }
+        puts "\n"
+    end
     end
 
 end
