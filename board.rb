@@ -45,3 +45,7 @@ class Board
     end
 
 end
+
+board = Board.new(3)
+board.render
+board.print
