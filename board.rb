@@ -16,6 +16,11 @@ class Board
         i = 1
         @grid.each { |row| row.insert(0, "#{i}") && i += 1 }
     end
+
+    def col_key
+        @dup.unshift((0..@grid[1].length - 1).to_a.join(' '))
+    end
+
     end
 
     def render(dup = [])
