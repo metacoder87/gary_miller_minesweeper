@@ -13,8 +13,9 @@ class Board
         @grid = self.class.the_grid(n)
     end
 
-    def render
-       @grid.dup.each { |line| p line.each_with_index { |tile, i| tile.hidden ? line[i] = "*" : line[i] = "_" } }
+    def render(dup = [])
+        @grid.each { |line| dup << line.map { |tile| tile.hidden ? "*" : "_" }.join(' ') }
+        dup.each { |line| p line }
     end
 
 end
