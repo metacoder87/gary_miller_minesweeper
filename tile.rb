@@ -4,6 +4,7 @@
 class Tile
 
     attr_accessor :hidden
+    attr_reader :bomb
 
     def initialize(status)
         @bomb = bomb?
@@ -11,7 +12,7 @@ class Tile
     end
 
     def bomb?
-        [ false, false, false, false, true ].sample
+        [ false, false, false, true ].sample
     end
 
 end
