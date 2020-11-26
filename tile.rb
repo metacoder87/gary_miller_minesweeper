@@ -12,7 +12,7 @@ class Tile
     end
 
     def bomb?
-        [ false, false, false, true ].sample
+        [false, false, false, false, false, true ].sample
     end
 
 end

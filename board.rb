@@ -24,6 +24,7 @@ class Board
     def initialize(n)
         @grid = self.class.the_grid(n)
         @tiled = tiles
+        @neighbors = []
     end
 
     def tiles
@@ -42,70 +43,65 @@ class Board
         puts "\n"
     end
 
-#     def neighbors(position)
-#         neighborinos = []
-#         x = position[0]
-#         y = position[1]
-#         x_range = (x - 1..x + 1).to_a
-#         y_range = (y - 1..y + 1).to_a
-#         x_range.each do |xs|
-#             y_range.each do |ys|
-#                 if [xs, ys].include?(0)
-#                     next
-#                 elsif [xs, ys] == position
-#                 else neighborinos << [xs, ys]
-#                 end
-#             end
-#         end
-#         neighborinos 
-#     end
+    def neighbors(position)
+        neighborinos = []
+        x = position[0]
+        y = position[1]
+        x_range = (x - 1..x + 1).to_a
+        y_range = (y - 1..y + 1).to_a
+        x_range.each do |xs|
+            y_range.each do |ys|
+                if @grid[xs][ys] == "*"
+                    neighborinos << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0)
+                end
+            end
+        end
+        return neighborinos 
+    end
 
-#     def bomb?(position)
-#         @grid[position[0]][position[1]].bomb
-#     end
+    def bomb?(position)
+        @tiled[position[0]][position[1]].bomb
+    end
 
-#     def adjacent_bombs(position)
-#         neighbors(position).select { |neighbor| bomb?(neighbor) }.count
-#     end
+    def adjacent_bombs(position)
+        neighbors(position).select { |neighbor| bomb?(neighbor) }.count
+    end
 
-#     def hood_reveal(position)
-#         neighbors(position).each do |neighbor| 
-#             if adjacent_bombs(neighbor) == 0 
-#                 reveal(neighbor)
-#             else @grid[neighbor[1] - 1][neighbor[0]] = adjacent_bombs(neighbor).to_s
-#             end
-#         end
-#     end
+    def hood_reveal
+        until @neighbors.empty?
+            neighbor = @neighbors.shift
+            tile = @tiled[neighbor[0]][neighbor[1]]
+            reveal(neighbor) if tile.hidden && !tile.bomb
+        end
+    end
 
-#     def reveal(position)
-#         @grid[position[1] - 1][position[0]].hidden = false
-#         hood_reveal(position)
-#         render
-#         print
-#         game_over?
-#     end
+    def reveal(position)  
+        if @tiled[position[0]][position[1]].hidden
+            @tiled[position[0]][position[1]].hidden = false
+            if bomb?(position)
+                game_over
+            elsif adjacent_bombs(position) == 0
+                @grid[position[0]][position[1]] = "_"
+                @neighbors << neighbors(position)
+                hood_reveal
+            else @grid[position[0]][position[1]] = adjacent_bombs(position)
+            end
+        else puts "The position #{position} has already been revealed."
+        end
+        print
+    end
 
-#     def game_over?
-#         @grid.each do |line| 
-#             line.each do |tile| 
-#                 if tile.is_a?(String)
-#                     next
-#                 elsif tile.hidden == false && tile.bomb
-#                     system 'clear'
-#                     puts "WOMP WOMP"
-#                     sleep(1) 
-#                     puts "Game Over"
-#                     sleep(3)
-#                     system 'clear'
-#                 else false
-#                 end
-#             end
-#         end
-#     end
+    def game_over
+        system 'clear'
+        puts "WOMP WOMP"
+        sleep(1) 
+        puts "Game Over"
+        sleep(3)
+        system 'clear'
+    end
 
 end
 
-# board = Board.new(5)
-# board.render
-# board.print
-# board.neighbors([1,1])
+board = Board.new(5)
+board.print
+board.neighbors([1,1])
