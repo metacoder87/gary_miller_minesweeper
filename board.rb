@@ -1,4 +1,8 @@
 
+
+
+require 'byebug'
+
 require_relative 'tile'
 
 class Board
@@ -41,6 +45,7 @@ class Board
         puts "\n"
         @grid.each { |line| puts line.join(' ') }
         puts "\n"
+        return true
     end
 
     def neighbors(position)
@@ -49,10 +54,14 @@ class Board
         y = position[1]
         x_range = (x - 1..x + 1).to_a
         y_range = (y - 1..y + 1).to_a
+        # debugger
         x_range.each do |xs|
             y_range.each do |ys|
-                if @grid[xs][ys] == "*"
-                    neighborinos << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0)
+                if xs < @grid.first.length && ys < @grid.first.length
+                    if @grid[xs][ys] && @grid[xs][ys] == "*" && !@neighbors.include?([xs, ys])
+                        @neighbors << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0)
+                    end
+                    neighborinos << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0) && @grid[xs][ys] == "*"
                 end
             end
         end
@@ -75,14 +84,15 @@ class Board
         end
     end
 
-    def reveal(position)  
+    def reveal(position)
+        # debugger
         if @tiled[position[0]][position[1]].hidden
             @tiled[position[0]][position[1]].hidden = false
             if bomb?(position)
                 game_over
             elsif adjacent_bombs(position) == 0
                 @grid[position[0]][position[1]] = "_"
-                @neighbors << neighbors(position)
+                neighbors(position)
                 hood_reveal
             else @grid[position[0]][position[1]] = adjacent_bombs(position)
             end
@@ -101,7 +111,3 @@ class Board
     end
 
 end
-
-board = Board.new(5)
-board.print
-board.neighbors([1,1])
