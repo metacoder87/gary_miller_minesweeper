@@ -12,7 +12,7 @@ class Tile
     end
 
     def bomb?
-        [false, false, false, false, false, true ].sample
+        Array.new(40,false).push(true).sample
     end
 
 end
