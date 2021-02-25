@@ -2,6 +2,7 @@
 
 
 require 'byebug'
+require 'colorize'
 
 require_relative 'tile'
 
@@ -43,7 +44,9 @@ class Board
     def print
         puts "\nMINESWEEPER"
         puts "\n"
-        @grid.each { |line| puts line.join(' ') }
+        @grid.each do |line| 
+            puts line.map { |tile| tile == "*" ? tile.green : tile == "_" ? tile.black : tile.to_s.red }.join(' ')
+        end
         puts "\n"
         return true
     end
@@ -57,8 +60,8 @@ class Board
         # debugger
         x_range.each do |xs|
             y_range.each do |ys|
-                if xs < @grid.first.length && ys < @grid.first.length
-                    if @grid[xs][ys] && @grid[xs][ys] == "*" && !@neighbors.include?([xs, ys])
+                if @grid[xs][ys] && xs < @grid.first.length && ys < @grid.first.length
+                    if @grid[xs][ys] == "*" && !@neighbors.include?([xs, ys])
                         @neighbors << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0)
                     end
                     neighborinos << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0) && @grid[xs][ys] == "*"
