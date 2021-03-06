@@ -123,6 +123,10 @@ class Board
         neighbors(position).select { |neighbor| bomb?(neighbor) }.count
     end
 
+    def adjacent_reveal(position)
+        @grid[position[0]][position[1]] = adjacent_bombs(position)
+    end
+
     def hood_reveal
         until @hood.empty?
             neighbor = @hood.shift
