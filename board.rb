@@ -127,6 +127,10 @@ class Board
         @grid[position[0]][position[1]] = adjacent_bombs(position)
     end
 
+    def hood_fill(position)
+        neighbors(position).select { |neighbor| adjacent_bombs(neighbor) < 1 ? @hood << neighbor : adjacent_reveal(neighbor) }
+    end
+
     def hood_reveal
         until @hood.empty?
             neighbor = @hood.shift
