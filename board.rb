@@ -33,7 +33,12 @@ class Board
     end
 
     def tiles
-        @grid[1..-1].map { |line| line[1..-1].map { |tile| tile = Tile.new } }
+        @grid.map do |line|
+            if line == @grid.first
+                line
+            else line.map { |tile| tile == line.first ? tile : tile = Tile.new }
+            end
+        end
     end
 
     def print
