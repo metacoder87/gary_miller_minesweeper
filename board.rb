@@ -44,8 +44,8 @@ class Board
     def print
         puts "\nMINESWEEPER"
         puts "\n"
-        @grid.each do |line| 
-            puts line.map { |tile| tile == "*" ? tile.green : tile == "_" ? tile.black : tile.to_s.red }.join(' ')
+        @grid.each_with_index do |line, idx| 
+            puts line.map.with_index { |tile, i| tile == "*" ? tile.green : tile == "_" ? tile.black : idx == 0 ? tile.to_s.red : i == 0 ? tile.to_s.red : tile == "F" ? tile.to_s.blue : tile }.join(' ')
         end
         puts "\n"
         return true
