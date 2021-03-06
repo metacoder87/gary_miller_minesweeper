@@ -124,10 +124,10 @@ class Board
     end
 
     def hood_reveal
-        until @neighbors.empty?
-            neighbor = @neighbors.shift
+        until @hood.empty?
+            neighbor = @hood.shift
             tile = @tiled[neighbor[0]][neighbor[1]]
-            reveal(neighbor) if tile.hidden && !tile.bomb
+            reveal(neighbor) if tile.hidden && !tile.bomb && !tile.flagged
         end
     end
 
