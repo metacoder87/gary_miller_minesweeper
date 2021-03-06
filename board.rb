@@ -104,15 +104,11 @@ class Board
             y_range = (y..y + 1).to_a
         else puts "Does not compute. Try again."
         end
-
         # debugger
         x_range.each do |xs|
             y_range.each do |ys|
-                if @grid[xs][ys] && xs < @grid.first.length && ys < @grid.first.length
-                    if @grid[xs][ys] == "*" && !@neighbors.include?([xs, ys])
-                        @neighbors << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0)
-                    end
-                    neighborinos << [xs, ys] if [xs, ys] != position && ![xs, ys].include?(0) && @grid[xs][ys] == "*"
+                if @grid[xs][ys] == "*" && !@hood.include?([xs, ys])
+                    neighborinos << [xs, ys] if [xs, ys] != position && @grid[xs][ys] == "*"
                 end
             end
         end
