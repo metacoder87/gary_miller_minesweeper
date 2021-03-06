@@ -33,12 +33,7 @@ class Board
     end
 
     def tiles
-        @grid.map do |line|
-            if line == @grid.first
-                line
-            else line.map { |tile| tile == line.first ? tile : tile = Tile.new(true) }
-            end
-        end
+        @grid[1..-1].map { |line| line[1..-1].map { |tile| tile = Tile.new } }
     end
 
     def print
@@ -150,6 +145,10 @@ class Board
         end
         print
     end
+
+    def win?
+        @tiled[1..-1].map { |row| row[1..-1].select { |tile| tile.hidden }.count }.sum == @tiled[1..-1].map { |row| row[1..-1].select { |tile| tile.bomb }.count }.sum
+    end 
 
     def game_over
         system 'clear'

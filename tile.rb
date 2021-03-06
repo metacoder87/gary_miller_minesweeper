@@ -6,9 +6,9 @@ class Tile
     attr_accessor :hidden, :flagged
     attr_reader :bomb
 
-    def initialize(status)
+    def initialize
         @bomb = bomb?
-        @hidden = status
+        @hidden = true
         @flagged = false
     end
 
