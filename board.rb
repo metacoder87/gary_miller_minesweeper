@@ -132,6 +132,13 @@ class Board
     end
 
     def flag(position)
+        if @grid[position[0]][position[1]] == "*"
+            @grid[position[0]][position[1]] = "F"
+            @tiled[position[0]][position[1]].flagged = true
+        elsif @grid[position[0]][position[1]] == "F"
+            @grid[position[0]][position[1]] = "*"
+            @tiled[position[0]][position[1]].flagged = false
+        else puts "Can not Flag that square."
         end
         print
     end
