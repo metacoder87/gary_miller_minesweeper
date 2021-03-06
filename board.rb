@@ -29,7 +29,7 @@ class Board
     def initialize(n)
         @grid = self.class.the_grid(n)
         @tiled = tiles
-        @neighbors = []
+        @hood = []
     end
 
     def tiles
