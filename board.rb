@@ -51,6 +51,24 @@ class Board
         return true
     end
 
+    def reveal(position)
+        # debugger
+        if @tiled[position[0]][position[1]].flagged
+                puts "Can not reveal this position while it is Flagged."
+        elsif @tiled[position[0]][position[1]].hidden 
+            @tiled[position[0]][position[1]].hidden = false
+            if bomb?(position)
+                game_over
+            elsif adjacent_bombs(position) == 0
+                @grid[position[0]][position[1]] = "_"
+                hood_fill(position)
+                hood_reveal
+            end
+        else puts "The position #{position} has already been revealed."
+        end
+        print
+    end
+
     def neighbors(position)
         neighborinos = []
         x = position[0]
