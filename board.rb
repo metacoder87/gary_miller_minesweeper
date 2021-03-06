@@ -131,19 +131,7 @@ class Board
         end
     end
 
-    def reveal(position)
-        # debugger
-        if @tiled[position[0]][position[1]].hidden
-            @tiled[position[0]][position[1]].hidden = false
-            if bomb?(position)
-                game_over
-            elsif adjacent_bombs(position) == 0
-                @grid[position[0]][position[1]] = "_"
-                neighbors(position)
-                hood_reveal
-            else @grid[position[0]][position[1]] = adjacent_bombs(position)
-            end
-        else puts "The position #{position} has already been revealed."
+    def flag(position)
         end
         print
     end
