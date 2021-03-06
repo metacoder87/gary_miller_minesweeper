@@ -96,6 +96,12 @@ class Board
         elsif x == @grid.first.length - 1 && y == @grid.first.length - 1
             x_range = (x - 1..x).to_a
             y_range = (y - 1..y).to_a
+        elsif x == 1 && y == @grid.first.length - 1
+            x_range = (x..x + 1).to_a
+            y_range = (y - 1..y).to_a
+        elsif x == @grid.first.length - 1 && y == 1
+            x_range = (x - 1..x).to_a
+            y_range = (y..y + 1).to_a
         else puts "Does not compute. Try again."
         end
 
