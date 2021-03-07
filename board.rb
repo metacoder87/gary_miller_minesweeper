@@ -63,6 +63,7 @@ class Board
                 @grid[position[0]][position[1]] = "_"
                 hood_fill(position)
                 hood_reveal
+            else adjacent_reveal(position)
             end
         else puts "The position #{position} has already been revealed."
         end
@@ -125,6 +126,7 @@ class Board
 
     def adjacent_reveal(position)
         @grid[position[0]][position[1]] = adjacent_bombs(position)
+        @tiled[position[0]][position[1]].hidden = false
     end
 
     def hood_fill(position)
