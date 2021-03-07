@@ -26,17 +26,58 @@ class Board
 
     attr_reader :grid, :tiled
 
-    def initialize(n)
+    def initialize(n, difficulty)
         @grid = self.class.the_grid(n)
-        @tiled = tiles
+        @tiled = tiled_fill(difficulty)
         @hood = []
     end
 
-    def tiles
+    def easy_dif
         @grid.map do |line|
             if line == @grid.first
                 line
-            else line.map { |tile| tile == line.first ? tile : tile = Tile.new }
+            elsif line == @grid[1]
+                line.map { |bomb| bomb == line.first ? bomb : bomb = Tile.new(true) }
+            else line.map { |tile| tile == line.first ? tile : tile = Tile.new(false) }
+            end
+        end
+    end
+
+    def med_dif
+        @grid.map do |line|
+            if line == @grid.first
+                line
+            elsif @grid[1..3].include?(line)
+                line.map { |bomb| bomb == line.first ? bomb : bomb = Tile.new(true) }
+            else line.map { |tile| tile == line.first ? tile : tile = Tile.new(false) }
+            end
+        end
+    end
+
+    def hard_dif
+        @grid.map do |line|
+            if line == @grid.first
+                line
+            elsif @grid[1..5].include?(line)
+                line.map { |bomb| bomb == line.first ? bomb : bomb = Tile.new(true) }
+            else line.map { |tile| tile == line.first ? tile : tile = Tile.new(false) }
+            end
+        end
+    end
+
+    def tiled_fill(difficulty)
+        filler = easy_dif[1..-1].map { |line| line[1..-1] }.flatten.shuffle! if difficulty == "easy"
+        filler = med_dif[1..-1].map { |line| line[1..-1] }.flatten.shuffle! if difficulty == "medium"
+        filler = hard_dif[1..-1].map { |line| line[1..-1] }.flatten.shuffle! if difficulty == "hard"
+        @grid.map do |line|
+            if line == @grid.first
+                line
+            else line.map do |tile|
+                if tile == line.first
+                    tile
+                else tile = filler.shift
+                end
+              end
             end
         end
     end
