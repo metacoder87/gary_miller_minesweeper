@@ -43,6 +43,9 @@ class MineSweeper
         until @board.win?
             get_choice
         end
-
     end
 
+end
+
+ms = MineSweeper.new
+ms.play
