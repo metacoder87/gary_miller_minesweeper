@@ -3,6 +3,7 @@
 
 class MineSweeper
 
+    def initialize
     def get_size
         size = nil
         until size && valid_size?(size)
