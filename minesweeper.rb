@@ -24,8 +24,14 @@ class MineSweeper
         diff
     end
 
-    def get_dif
-
+    def get_choice  
+        choice = nil
+        until choice
+            puts "Choose which location to sweep or flag."
+            print "> "
+            choice = gets.chomp.to_a
+        end
+        choice
     end
 
 end
