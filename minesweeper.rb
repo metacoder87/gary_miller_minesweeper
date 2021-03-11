@@ -4,6 +4,10 @@
 class MineSweeper
 
     def initialize
+        @size = get_size
+        @diff = get_diff
+    end
+
     def get_size
         size = nil
         until size && (1..10).include?(size)
