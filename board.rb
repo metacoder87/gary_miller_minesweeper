@@ -205,6 +205,7 @@ class Board
         puts "Game Over"
         sleep(3)
         system 'clear'
+        return 
     end
 
 end
