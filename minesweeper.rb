@@ -48,8 +48,10 @@ class MineSweeper
 
     def play
         until @board.win?
+            @board.print
             get_choice
         end
+        win
     end
 
 end
