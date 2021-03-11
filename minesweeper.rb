@@ -3,9 +3,10 @@
 
 class MineSweeper
 
+    attr_reader :board
+
     def initialize
-        @size = get_size
-        @diff = get_diff
+        @board = Board.new(get_size, get_diff)
     end
 
     def get_size
