@@ -1,5 +1,6 @@
 
 
+require_relative "board"
 
 class MineSweeper
 
@@ -44,6 +45,13 @@ class MineSweeper
         end
     end
 
+    def win
+        system 'clear'
+        puts "WOO HOO YOU WON!!"
+        sleep(1) 
+        puts "YOU HAVE SWEPT ALL OF THE MINES, THE FIELD IS CLEAR"
+        sleep(3)
+        system 'clear'
     end
 
     def play
