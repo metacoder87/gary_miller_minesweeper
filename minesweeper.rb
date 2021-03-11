@@ -34,9 +34,16 @@ class MineSweeper
         until choice
             puts "Choose which location to sweep or flag."
             print "> "
-            choice = gets.chomp.to_a
+            choice = gets.chomp.downcase.split()
         end
-        choice
+        if choice.include?("f")
+            choice = choice.map { |num| num == "f" ? next : num.to_i }.compact
+            @board.flag(choice)
+        else choice = choice.map { |num| num.to_i } 
+            @board.reveal(choice)
+        end
+    end
+
     end
 
     def play
