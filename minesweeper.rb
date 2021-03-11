@@ -39,4 +39,10 @@ class MineSweeper
         choice
     end
 
-end
+    def play
+        until @board.win?
+            get_choice
+        end
+
+    end
+
