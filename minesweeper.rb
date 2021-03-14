@@ -7,8 +7,15 @@ class MineSweeper
     attr_reader :board
 
     def initialize
-        @board = Board.new(get_size, get_diff)
+        if File.exist?("save.txt")
+            if new_game?
+                @board = Board.new(get_size, get_diff)
+            else load_game
+            end
+        else @board = Board.new(get_size, get_diff)
+        end
     end
+
     def new_game?
         status = nil
         until status && ['new', 'saved'].include?(status)
