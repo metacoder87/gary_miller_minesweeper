@@ -30,8 +30,9 @@ class MineSweeper
     end
 
     def load_game
-        @board = YAML::load(File.read("saved.txt"))
-        File.delete("save.txt")
+        game = File.read("saved.txt")
+        @board = YAML::load(game)
+        File.delete("saved.txt")
     end
         
 
@@ -84,7 +85,7 @@ class MineSweeper
     end
 
     def save_game
-        File.open("save.txt", "w") { |file| file.write(@board.to_yaml) }
+        File.open("saved.txt", "w") { |file| file.write(@board.to_yaml) }
     end
 
 
