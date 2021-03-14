@@ -1,5 +1,6 @@
 
 
+require "yaml"
 require_relative "board"
 
 class MineSweeper
@@ -7,7 +8,7 @@ class MineSweeper
     attr_reader :board
 
     def initialize
-        if File.exist?("save.txt")
+        if File.exist?("saved.txt")
             if new_game?
                 @board = Board.new(get_size, get_diff)
             else load_game
