@@ -33,13 +33,17 @@ class MineSweeper
     def get_choice  
         choice = nil
         until choice
-            puts "Choose which location to sweep or flag."
+            puts "Choose which location to sweep using (x,y)"
+            puts "You can flag by including an F with the location."
+            puts "Or you can choose S to save your game and come back later."
             print "> "
             choice = gets.chomp.downcase.split()
         end
         if choice.include?("f")
             choice = choice.map { |num| num == "f" ? next : num.to_i }.compact
             @board.flag(choice)
+        elsif choice.include?("s")
+            save_game
         else choice = choice.map { |num| num.to_i } 
             @board.reveal(choice)
         end
@@ -53,6 +57,11 @@ class MineSweeper
         sleep(3)
         system 'clear'
     end
+
+    def save_game
+        File.open("save.txt", "w") { |file| file.write(@board.to_yaml) }
+    end
+
 
     def play
         until @board.win?
