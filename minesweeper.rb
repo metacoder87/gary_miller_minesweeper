@@ -22,6 +22,12 @@ class MineSweeper
         end
     end
 
+    def load_game
+        @board = YAML::load(File.read("saved.txt"))
+        File.delete("save.txt")
+    end
+        
+
     def get_size
         size = nil
         until size && (1..10).include?(size)
