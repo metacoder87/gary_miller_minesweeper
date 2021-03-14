@@ -9,6 +9,18 @@ class MineSweeper
     def initialize
         @board = Board.new(get_size, get_diff)
     end
+    def new_game?
+        status = nil
+        until status && ['new', 'saved'].include?(status)
+            puts "Should I load a 'new' or 'saved' game?"
+            print "> "
+            status = gets.chomp.to_s.downcase
+        end
+        if status == "new"
+            return true
+        else false
+        end
+    end
 
     def get_size
         size = nil
