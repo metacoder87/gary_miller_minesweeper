@@ -24,12 +24,18 @@ class Board
         end
     end
 
-    attr_reader :grid, :tiled
+    attr_accessor :total_time, :end_time
+    attr_reader :grid, :tiled, :size, :difficulty, :start_time
 
     def initialize(n, difficulty)
+        @size = n
+        @difficulty = difficulty
         @grid = self.class.the_grid(n)
         @tiled = tiled_fill(difficulty)
         @hood = []
+        @total_time = 0
+        @start_time = Time.now
+        @end_time = 0
     end
 
     def easy_dif
@@ -83,12 +89,14 @@ class Board
     end
 
     def print
+        current_time = Time.now - @start_time
         puts "\nMINESWEEPER"
         puts "\n"
         @grid.each_with_index do |line, idx| 
             puts line.map.with_index { |tile, i| tile == "*" ? tile.green : tile == "_" ? tile.black : idx == 0 ? tile.to_s.red : i == 0 ? tile.to_s.red : tile == "F" ? tile.to_s.blue : tile }.join(' ')
         end
         puts "\n"
+        puts "#{current_time} seconds have elapsed..."
         return true
     end
 
@@ -203,10 +211,12 @@ class Board
     end 
 
     def game_over
+        @end_time = Time.now
+        lose_time = @end_time - @start_time
         system 'clear'
-        puts "WOMP WOMP"
+        puts "WOMP WOMP, Game Over."
         sleep(1) 
-        puts "Game Over"
+        puts "You lost and it only took #{lose_time}"
         sleep(3)
         system 'clear'
         exit
