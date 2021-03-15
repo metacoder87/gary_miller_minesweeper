@@ -38,7 +38,7 @@ class MineSweeper
 
     def get_size
         size = nil
-        until size && (1..10).include?(size)
+        until size && (1..99).include?(size)
             puts "What size board would you like to sweep for mines? (You can say, 3, 6, 9, 12...)"
             print "> "
             size = gets.chomp.to_i
@@ -59,15 +59,20 @@ class MineSweeper
     def get_choice
         choice = nil
         until choice
-            puts "Choose which location to sweep using (y x)"
+            puts "Choose which location to sweep using (y, x)"
             puts "You can flag by including an F with the location."
             puts "Also you can choose S to save your game and come back later."
             print "> "
-            choice = gets.chomp.downcase.split('')
+            choice = gets.chomp.downcase
         end
 
-        if choice.include?("f")
-            choice = choice.map { |num| num == "f" ? next : num == " " ? next : num == "," ? next : num.to_i }.compact
+        if choice.include?(",")
+            choice = choice.split(',')
+        else choice = choice.split(' ')
+        end
+
+        if choice.any? { |part| part.include?("f") }
+            choice = choice.map { |num| num == "f" ? next : num.include?("f") ? num.delete("f").to_i : num == " " ? next : num == "," ? next : num.to_i }.compact
             @board.flag(choice)
         elsif choice.include?("s")
             save_game
