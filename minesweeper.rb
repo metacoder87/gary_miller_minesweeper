@@ -75,6 +75,8 @@ class MineSweeper
             choice = choice.map { |num| num == "f" ? next : num.include?("f") ? num.delete("f").to_i : num == " " ? next : num == "," ? next : num.to_i }.compact
             @board.flag(choice)
         elsif choice.include?("s")
+            game_time = Time.now - @board.start_time
+            @board.total_time = @board.total_time + game_time
             save_game
             system 'clear'
             puts "Your field has been saved."
@@ -90,10 +92,13 @@ class MineSweeper
     end
 
     def win
+        @board.end_time = Time.now
+        @board.total_time = @board.end_time - @board.start_time
         system 'clear'
         puts "WOO HOO YOU WON!!"
         sleep(1) 
         puts "YOU HAVE SWEPT ALL OF THE MINES, THE FIELD IS CLEAR"
+        puts "Its only took you #{@board.total_time} seconds."
         sleep(3)
         system 'clear'
         exit
