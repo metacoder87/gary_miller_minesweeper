@@ -33,6 +33,7 @@ class MineSweeper
     def load_game
         @board = YAML::load(File.read("saved.txt"))
         File.delete("saved.txt")
+        @board.start_time = Time.now
     end
         
 
@@ -98,7 +99,7 @@ class MineSweeper
         puts "WOO HOO YOU WON!!"
         sleep(1) 
         puts "YOU HAVE SWEPT ALL OF THE MINES, THE FIELD IS CLEAR"
-        puts "Its only took you #{@board.total_time} seconds."
+        puts "Its only took you #{@board.total_time.floor} seconds."
         sleep(3)
         system 'clear'
         exit
