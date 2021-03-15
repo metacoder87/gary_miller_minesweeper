@@ -1,5 +1,5 @@
 
-
+require "byebug"
 require "yaml"
 require_relative "board"
 
@@ -31,8 +31,7 @@ class MineSweeper
     end
 
     def load_game
-        game = File.read("saved.txt")
-        @board = YAML::load(game)
+        @board = YAML::load(File.read("saved.txt"))
         File.delete("saved.txt")
     end
         
@@ -57,21 +56,30 @@ class MineSweeper
         diff
     end
 
-    def get_choice  
+    def get_choice
         choice = nil
         until choice
-            puts "Choose which location to sweep using (x,y)"
+            puts "Choose which location to sweep using (y x)"
             puts "You can flag by including an F with the location."
-            puts "Or you can choose S to save your game and come back later."
+            puts "Also you can choose S to save your game and come back later."
             print "> "
-            choice = gets.chomp.downcase.split()
+            choice = gets.chomp.downcase.split('')
         end
+
         if choice.include?("f")
-            choice = choice.map { |num| num == "f" ? next : num.to_i }.compact
+            choice = choice.map { |num| num == "f" ? next : num == " " ? next : num == "," ? next : num.to_i }.compact
             @board.flag(choice)
         elsif choice.include?("s")
             save_game
-        else choice = choice.map { |num| num.to_i } 
+            system 'clear'
+            puts "Your field has been saved."
+            sleep(2)
+            system 'clear'
+            puts "Thanks for playing"
+            sleep(2)
+            system 'clear'
+            exit
+        else choice = choice.map { |num| num == " " ? next : num == "," ? next : num.to_i }.compact 
             @board.reveal(choice)
         end
     end
@@ -83,6 +91,7 @@ class MineSweeper
         puts "YOU HAVE SWEPT ALL OF THE MINES, THE FIELD IS CLEAR"
         sleep(3)
         system 'clear'
+        exit
     end
 
     def save_game
@@ -92,6 +101,7 @@ class MineSweeper
 
     def play
         until @board.win?
+            system 'clear'
             @board.print
             get_choice
         end

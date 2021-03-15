@@ -96,6 +96,7 @@ class Board
         # debugger
         if @tiled[position[0]][position[1]].flagged
                 puts "Can not reveal this position while it is Flagged."
+                sleep(3)
         elsif @tiled[position[0]][position[1]].hidden 
             @tiled[position[0]][position[1]].hidden = false
             if bomb?(position)
@@ -107,6 +108,7 @@ class Board
             else adjacent_reveal(position)
             end
         else puts "The position #{position} has already been revealed."
+            sleep(3)
         end
         print
     end
@@ -145,6 +147,7 @@ class Board
             x_range = (x - 1..x).to_a
             y_range = (y..y + 1).to_a
         else puts "Does not compute. Try again."
+            sleep(3)
         end
         # debugger
         x_range.each do |xs|
@@ -190,6 +193,7 @@ class Board
             @grid[position[0]][position[1]] = "*"
             @tiled[position[0]][position[1]].flagged = false
         else puts "Can not Flag that square."
+            sleep(3)
         end
         print
     end
@@ -205,7 +209,7 @@ class Board
         puts "Game Over"
         sleep(3)
         system 'clear'
-        return 
+        exit
     end
 
 end
