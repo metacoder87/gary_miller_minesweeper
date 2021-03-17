@@ -15,3 +15,7 @@ class ScoreKeeper
     def high_scores
         @scores = YAML::load(File.read("high_scores.txt"))
     end
+
+    def add_score
+        @scores.store(@name, [@difficulty, @size, @time])
+    end
