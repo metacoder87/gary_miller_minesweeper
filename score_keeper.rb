@@ -6,3 +6,7 @@ class ScoreKeeper
         @time = time
         @difficulty = difficulty
     end
+
+    def sub_score
+        { @name => [@difficulty, @size, @time] }
+    end
