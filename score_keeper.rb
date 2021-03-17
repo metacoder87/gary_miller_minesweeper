@@ -1,6 +1,12 @@
+
+
+
+require 'yaml'
+
 class ScoreKeeper
 
     attr_reader :scores
+
     def initialize(name, size, difficulty, time)
         @name = name
         @size = size
@@ -19,3 +25,9 @@ class ScoreKeeper
     def add_score
         @scores.store(@name, [@difficulty, @size, @time])
     end
+
+    def save_scores
+        File.open("high_scores.txt", "w") { |file| file.write(@scores.to_yaml) }
+    end
+
+end
