@@ -27,6 +27,9 @@ class ScoreKeeper
         @scores.store(@name, [@difficulty, @size, @time])
     end
 
+    def top_scores
+        @scores.select { |key, value| value.first == @difficulty && value[1] == @size }.sort_by { |score| score[1] }.first(10)
+    end
     def save_scores
         File.open("high_scores.txt", "w") { |file| file.write(@scores.to_yaml) }
     end
