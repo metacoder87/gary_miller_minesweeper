@@ -133,8 +133,9 @@ class MineSweeper
         sleep(1) 
         puts "YOU HAVE SWEPT ALL OF THE MINES, THE FIELD IS CLEAR"
         puts "Its only took you #{@board.total_time.floor} seconds."
-        sleep(3)
+        sleep(5)
         system 'clear'
+        submit_scores
         exit
     end
 
