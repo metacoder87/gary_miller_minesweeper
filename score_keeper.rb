@@ -5,7 +5,7 @@ require 'yaml'
 
 class ScoreKeeper
 
-    attr_reader :scores
+    attr_reader :scores, :name, :size, :difficulty, :time
 
     def initialize(name, size, difficulty, time)
         @name = name
