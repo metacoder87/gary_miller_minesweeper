@@ -30,6 +30,18 @@ class ScoreKeeper
     def top_scores
         @scores.select { |key, value| value.first == @difficulty && value[1] == @size }.sort_by { |score| score[1] }.first(10)
     end
+
+    def leader_board
+        system 'clear'
+        place = 1
+        puts "\tTop Scores"
+        puts "Difficulty: #{@difficulty}, Size: #{@size}"
+        top_scores.each do |player| 
+            puts "#{place} -> #{player[0]} \t| #{player[1][-1]}"
+            place += 1
+        end
+    end
+
     def save_scores
         File.open("high_scores.txt", "w") { |file| file.write(@scores.to_yaml) }
     end
