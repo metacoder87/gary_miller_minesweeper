@@ -2,6 +2,7 @@
 require "byebug"
 require "yaml"
 require_relative "board"
+require_relative "score_keeper"
 
 class MineSweeper
 
