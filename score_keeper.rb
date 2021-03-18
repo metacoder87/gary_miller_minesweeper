@@ -12,6 +12,7 @@ class ScoreKeeper
         @size = size
         @time = time
         @difficulty = difficulty
+        @scores = {}
     end
 
     def sub_score
