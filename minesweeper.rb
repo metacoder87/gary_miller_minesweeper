@@ -100,6 +100,31 @@ class MineSweeper
         scores.leader_board
         scores.save_scores
     end
+
+    def submit_scores
+        answer = nil
+        until answer && ['y', 'n'].include?(answer)
+            puts "Would you like to see if you made the top 10?"
+            puts "\t(y / n)"
+            print "> "
+            answer = gets.chomp.to_s.downcase
+        end
+        if answer == "y"
+            puts "Please enter your name..."
+            print "> "
+            name = gets.chomp.to_s.capitalize
+            if name.length == 10
+                puts "Do you have a name that is less than 11 letters?"
+                print "Shorter name -> "
+                name = gets.chomp.to_s.capitalize
+            else leaderboard(name)
+            end
+        else puts "You got it bro, your scores are dust in the wind..."
+             sleep(3)
+             system 'clear'
+        end
+    end
+
     def win
         @board.end_time = Time.now
         @board.total_time = @board.end_time - @board.start_time
