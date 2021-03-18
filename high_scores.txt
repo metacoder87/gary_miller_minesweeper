@@ -1,0 +1,41 @@
+---
+Gary:
+- Easy
+- 9
+- 160
+Mike:
+- Easy
+- 9
+- 700
+Sean:
+- Easy
+- 10
+- 950
+Bob:
+- Hard
+- 9
+- 990
+Joe:
+- Hard
+- 10
+- 1200
+Jon:
+- Easy
+- 9
+- 850
+Evan:
+- Easy
+- 9
+- 850
+Ragnar:
+- Easy
+- 9
+- 730
+Michelle:
+- Easy
+- 9
+- 770
+Esme:
+- Easy
+- 9
+- 190
