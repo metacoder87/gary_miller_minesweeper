@@ -93,6 +93,13 @@ class MineSweeper
         end
     end
 
+    def leaderboard(name)
+        scores = ScoreKeeper.new(name.capitalize, @board.size, @board.difficulty.capitalize, @board.total_time.floor)
+        scores.high_scores
+        scores.add_score
+        scores.leader_board
+        scores.save_scores
+    end
     def win
         @board.end_time = Time.now
         @board.total_time = @board.end_time - @board.start_time
